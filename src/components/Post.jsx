@@ -30,6 +30,12 @@ export function Post({ author, content, publishedAt }) {
     function handleNewCommentChange() {
         setNewCommentText(event.target.value);
     }
+
+    function deleteComment(commentToDelete) {
+        const commentsWithoutDeletedOne = comments.filter(comment => comment !== commentToDelete);
+        setComments(commentsWithoutDeletedOne);
+    }
+
     return (
         <article className={styles.post}>
             <header>
@@ -47,13 +53,15 @@ export function Post({ author, content, publishedAt }) {
             <div className={styles.content}>
                 {content.reverse().map(line => {
                     if (line.type === 'paragraph') {
-                        return <p>{line.content}</p>
+                        return <p key={line.content}>{line.content}</p>
                     } else if (line.type === 'link') {
-                        return <p><a>{line.content}</a></p>
+                        return <p key={line.content}><a>{line.content}</a></p>
                     }
                 })}
             </div>
-            <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+            <form
+                onSubmit={handleCreateNewComment}
+                className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
                 <textarea
@@ -69,7 +77,13 @@ export function Post({ author, content, publishedAt }) {
 
             <div className={styles.commentList}>
                 {comments.map(comment => {
-                    return <Comment content={comment} />
+                    return (
+                        <Comment
+                            key={comment}
+                            content={comment}
+                            onDeleteComment={deleteComment}
+                        />
+                    )
                 })}
             </div>
 
