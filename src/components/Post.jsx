@@ -12,6 +12,7 @@ export function Post({ author, content, publishedAt }) {
     const [newCommentText, setNewCommentText] = useState('');
 
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", { locale: ptBR });
+
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
         locale: ptBR,
         addSuffix: "Há"
@@ -23,11 +24,12 @@ export function Post({ author, content, publishedAt }) {
             setComments([...comments, newCommentText].reverse())
             setNewCommentText('');
         } else {
-            alert("Sem nada para comentar? Dê um tempinho, as boas ideias sempre chegam com estilo!")
+            setNewCommentText("Sem nada para comentar? Dê um tempinho, as boas ideias sempre chegam com estilo!")
         }
     }
 
     function handleNewCommentChange() {
+        event.target.setCustomValidity('');
         setNewCommentText(event.target.value);
     }
 
@@ -35,7 +37,11 @@ export function Post({ author, content, publishedAt }) {
         const commentsWithoutDeletedOne = comments.filter(comment => comment !== commentToDelete);
         setComments(commentsWithoutDeletedOne);
     }
+    function handleNewCommentInvalid() {
+        event.target.setCustomValidity("Você precisa digitar alguma coisa.");
+    }
 
+    const isNewCommentEmpty = newCommentText.length == 0;
     return (
         <article className={styles.post}>
             <header>
@@ -68,9 +74,11 @@ export function Post({ author, content, publishedAt }) {
                     name='comment'
                     placeholder='Deixe um comentário'
                     value={newCommentText}
-                    onChange={handleNewCommentChange} />
+                    onInvalid={handleNewCommentInvalid}
+                    onChange={handleNewCommentChange}
+                    required />
                 <footer>
-                    <button type="submit">Comentar</button>
+                    <button type="submit" disabled={isNewCommentEmpty}>Comentar</button>
                 </footer>
             </form>
 
@@ -86,7 +94,6 @@ export function Post({ author, content, publishedAt }) {
                     )
                 })}
             </div>
-
         </article>
     )
 }
