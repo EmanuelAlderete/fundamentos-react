@@ -1,12 +1,32 @@
-# React + Vite
+# React Blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação de blog construída com React que permite aos usuários criar posts, adicionar comentários e interagir através de curtidas.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Criar e visualizar posts
+- Adicionar comentários aos posts
+- Curtir comentários
+- Deletar comentários 
+- Validação de formulários
+- Design responsivo
+- Formatação de datas
 
-## Expanding the ESLint configuration
+## Tecnologias Utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- CSS Modules
+- date-fns para formatação de datas
+- phosphor-react para ícones
+
+## Estrutura do Projeto
+
+Os principais componentes são:
+
+- `Post.jsx` - Gerencia a exibição de posts e funcionalidade de comentários
+- `Comment.jsx` - Componente individual de comentário com ações de curtir/deletar
+- `Avatar.jsx` - Componente reutilizável de avatar
+- `Header.jsx` - Cabeçalho da aplicação
+
+CSS modules são utilizados para estilização de cada componente.
+
